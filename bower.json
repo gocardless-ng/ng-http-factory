@@ -1,0 +1,23 @@
+{
+  "name": "ng-http-factory",
+  "version": "0.0.1",
+  "main": "ng-http-factory.js",
+  "dependencies": {
+    "bower-angular": "git@github.com:angular/bower-angular.git#v1.2.0-rc.2",
+    "bower-redefine": "git@github.com:gocardless-client/bower-redefine.git",
+    "bower-lodash-angular": "git@github.com:gocardless-client/bower-lodash-angular.git"
+  },
+  "devDependencies": {
+    "bower-angular-mocks": "git@github.com:angular/bower-angular-mocks.git#v1.2.0-rc.2"
+  },
+  "ignore": [
+    "**/.*",
+    "**/*-spec",
+    "node_modules",
+    "components",
+    "package.json",
+    "Gruntfile.js",
+    "readme.md",
+    "karma.conf.js"
+  ]
+}
