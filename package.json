@@ -25,6 +25,7 @@
     "karma-junit-reporter": "~0.1.0"
   },
   "scripts": {
+    "postinstall": "bower install",
     "test": "grunt citest"
   },
   "engines": {

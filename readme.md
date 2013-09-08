@@ -1,5 +1,7 @@
 # Angular HttpFactory
 
+![](https://circleci.com/gh/gocardless/ng-http-factory.png?circle-token=:circle-token)
+
 Angular.js `$http` abstraction similar to `$resource`.
 
 What it does:
