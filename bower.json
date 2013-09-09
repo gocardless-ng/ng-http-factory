@@ -1,6 +1,6 @@
 {
   "name": "ng-http-factory",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "ng-http-factory.js",
   "dependencies": {
     "bower-angular": "git@github.com:angular/bower-angular.git#v1.2.0-rc.2",
@@ -8,7 +8,8 @@
     "bower-lodash-angular": "git@github.com:gocardless-client/bower-lodash-angular.git"
   },
   "devDependencies": {
-    "bower-angular-mocks": "git@github.com:angular/bower-angular-mocks.git#v1.2.0-rc.2"
+    "bower-angular-mocks": "git@github.com:angular/bower-angular-mocks.git#v1.2.0-rc.2",
+    "jasmine-helpers": "git@github.com:gocardless/jasmine-helpers.git"
   },
   "ignore": [
     "**/.*",

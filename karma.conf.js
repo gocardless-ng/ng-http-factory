@@ -8,11 +8,19 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      // Vendor
       'components/bower-angular/angular.js',
       'components/bower-angular-mocks/angular-mocks.js',
       'components/bower-lodash-angular/lodash.custom.js',
       'components/bower-redefine/redefine.js',
+
+      // Specs helpers
+      'components/jasmine-helpers/*.js',
+
+      // Src
       'ng-http-factory.js',
+
+      // Specs
       'ng-http-factory.spec.js'
     ],
 

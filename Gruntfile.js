@@ -10,8 +10,6 @@ var BROWSERS = [
 ];
 
 module.exports = function(grunt) {
-  grunt.task.loadTasks('./tasks');
-
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
   grunt.initConfig({

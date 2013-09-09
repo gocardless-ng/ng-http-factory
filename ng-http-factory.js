@@ -2,12 +2,12 @@
   'use strict';
 
   /**
-   * Example
+   * ngHttpFactory is a module that wraps Angular $http
    *
    * var BillHttp = HttpFactory.create({
-  *     method: 'GET',
-  *     url: '/api/bills/:id'
-  *   }, {
+   *   method: 'GET',
+   *   url: '/api/bills/:id'
+   * }, {
    *   find: {
    *     interceptor: {
    *       response: function(response) {
@@ -24,7 +24,9 @@
    *   }
    * });
    *
-   *  BillHttp.find({params: { id: 1 }});
+   *  BillHttp.find({params: { id: 1 }})
+   *    .then(function(responseData) {
+   *    });
    *  GET /api/bills/1
    */
 
@@ -89,9 +91,16 @@
           replace(/%20/g, (pctEncodeSpaces ? '%20' : '+'));
       }
 
-      function setUrlParams(config) {
+      function cloneConfig(config) {
         config = _.cloneDeep(config);
+        return config;
+      }
 
+      /**
+       * @param {Object} config $http config
+       * @return {Object}
+       */
+      function setUrlParams(config) {
         var url = config.url;
         var params = config.params || {};
         var urlParams = {};
@@ -188,16 +197,19 @@
        * @return {Object}
        */
       function methods(configDefaults, actions) {
+        configDefaults = _.cloneDeep(configDefaults);
+
         _.forEach(_.keys(actions), function(action) {
           var config = actions[action];
           var buildConfig;
 
           if (_.isObject(config)) {
-            buildConfig = _.partial(_.extend, {}, configDefaults, config);
+            buildConfig = _.partial(_.merge, {}, configDefaults, config);
             _.redefine(actions, action, _.compose(
               request,
               setUrlParams,
-              buildConfig
+              buildConfig,
+              cloneConfig
             ), enumDescriptors);
           }
         });
@@ -223,8 +235,8 @@
       /**
        * Build http methods
        *
-       * @param  {Object} configDefaults
-       * @param  {Object} actions
+       * @param  {Object} configDefaults|actions
+       * @param  {Object|undefined} actions
        * @return {Object}
        */
       this.create = function create(configDefaults, actions) {
