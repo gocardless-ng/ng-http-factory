@@ -2,42 +2,68 @@
 
 ![](https://circleci.com/gh/gocardless/ng-http-factory.png?circle-token=:circle-token)
 
-Angular.js `$http` abstraction similar to `$resource`.
+Remove boilerplate from `$http` calls without changing the return values and
+config API.
 
-What it does:
-- url interpolation (same as $resource)
-- response iterceptor (same as $resource)
-- returns promises
 
-What it does not do:
-- return objects that will populate themselves (like $resource)
+## Differences between `$resource` and `HttpFactory`
 
+Like `$resource`, it takes a object of actions and returns a object
+with functions that call `$http` with any passed config.
+
+Similarly, url templating is supported, interpolation differs in
+that it is always done using `config.params` `$resource` will use `config.data`
+or `config.params` depending on the request methid. `config.interceptor` logic works
+just like `$resource`.
+
+It differs from `$resource` in that it always returns promises, like
+`$http`, and therefore does not return resource 'instances'.
+
+There are no default actions specified.
+
+
+## `HttpFactory.create`
+
+`$http` config can be passed in the following ways:
+- `create` takes default config as the first argument, if a second argument is
+  not supplied it is assumed the first arguemtn is actions, whic hare always
+  required.
+- The action object will extend the default config
+- Calling the resulting action function will extend the action object config,
+  which in turn extends the default config
+
+
+Example:
 ```javascript
-// Example
-
-var BillHttp = HttpFactory.create({
-   method: 'GET',
-   url: '/api/bills/:id'
- }, {
-  find: {
-    interceptor: {
-      response: function(response) {
-        return response.data;
-      },
-      responseError: function(responseError) {
-        return responseError.data;
-      }
-    }
-  },
-  entries: {
-    method: 'GET',
-    url: '/api/submissions/:id/entries'
+var defaultHttp = HttpFactory.create({
+  url: '/default/params',
+  method: 'GET'
+}, {
+  action: {
+    url: '/will/overwrite/default/params'
   }
+}
+
+defaultHttp.action({
+  url: '/overwrites/action/url'
 });
 
-BillHttp.find({params: { id: 1 }});
-// GET /api/bills/1
+// GET /overwrites/action/url
 ```
+
+Everything except `config.intercetor` and `config.params`
+are passed straight into `$http(config)` without any modifiecation.
+
+### url interpolation (config.params and config.url)
+
+If a `config.url` is encountered with a `:{String}` it is assumed to be a url
+param that should be interpolated using `config.params`.
+
+Any params that match `config.params` will be used when interpolating the `url`
+and stripped before `params` are passed to `$http`.
+
+The logic for url interpolation is basically copied from `ngResource`.
+
 
 ## Copyright and license
 
