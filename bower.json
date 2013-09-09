@@ -13,7 +13,7 @@
   },
   "ignore": [
     "**/.*",
-    "**/*.spec",
+    "*.spec",
     "node_modules",
     "components",
     "package.json",
