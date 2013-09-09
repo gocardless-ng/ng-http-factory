@@ -26,9 +26,9 @@ There are no default actions specified.
 
 `$http` config can be passed in the following ways:
 - `create` takes default config as the first argument, if a second argument is
-  not supplied it is assumed the first arguemtn is actions, whic hare always
-  required.
-- The action object will extend the default config
+  not supplied it is assumed that the first argument is actions, which are
+  always required.
+- The actions object will extend the default config
 - Calling the resulting action function will extend the action object config,
   which in turn extends the default config
 
@@ -52,7 +52,7 @@ defaultHttp.action({
 ```
 
 Everything except `config.intercetor` and `config.params`
-are passed straight into `$http(config)` without any modifiecation.
+are passed straight into `$http(config)` without any modification.
 
 ### url interpolation (config.params and config.url)
 
