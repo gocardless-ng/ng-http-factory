@@ -26,7 +26,7 @@ There are no default actions specified.
 
 `$http` config can be passed in the following ways:
 - `create` takes default config as the first argument, if a second argument is
-  not supplied it is assumed that the first argument is actions, which are
+  not supplied it is assumed that the first argument is actions, which is
   always required.
 - The actions object will extend the default config
 - Calling the resulting action function will extend the action object config,
