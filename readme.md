@@ -12,8 +12,7 @@ Like `$resource`, it takes a object of actions and returns a object
 with functions that call `$http` with any passed config.
 
 Similarly, url templating is supported, interpolation differs in
-that it is always done using `config.params` `$resource` will use `config.data`
-or `config.params` depending on the request methid. `config.interceptor` logic works
+that it is always done using `config.params`. `config.interceptor` logic works
 just like `$resource`.
 
 It differs from `$resource` in that it always returns promises, like
