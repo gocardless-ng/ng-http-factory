@@ -103,6 +103,25 @@ describe('HttpFactory', function(){
             url: '/some'
           });
         });
+
+        it('overwrites action config', function() {
+          $httpBackend.expectGET('/other?page=1').respond(200);
+          $httpBackend.expectGET('/other?status=active').respond(200);
+          $httpBackend.expectGET('/what/api').respond(200);
+          http.find({
+            params: {
+              page: 1
+            }
+          });
+          http.find({
+            params: {
+              status: 'active'
+            }
+          });
+          http.find({
+            url: '/what/api'
+          });
+        });
       });
     });
 

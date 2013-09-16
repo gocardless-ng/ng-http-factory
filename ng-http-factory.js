@@ -91,9 +91,14 @@
           replace(/%20/g, (pctEncodeSpaces ? '%20' : '+'));
       }
 
-      function cloneConfig(config) {
-        config = _.cloneDeep(config);
-        return config;
+      /**
+       * Deep clones all configs
+       * @param  {Object} all arguments
+       * @return {Object}
+       */
+      function cloneConfigs() {
+        var configs = _.map(_.toArray(arguments), _.cloneDeep);
+        return _.merge.apply(null, configs);
       }
 
       /**
@@ -197,19 +202,13 @@
        * @return {Object}
        */
       function methods(configDefaults, actions) {
-        configDefaults = _.cloneDeep(configDefaults);
-
         _.forEach(_.keys(actions), function(action) {
           var config = actions[action];
-          var buildConfig;
-
           if (_.isObject(config)) {
-            buildConfig = _.partial(_.merge, {}, configDefaults, config);
             _.redefine(actions, action, _.compose(
               request,
               setUrlParams,
-              buildConfig,
-              cloneConfig
+              _.partial(cloneConfigs, configDefaults, config)
             ), enumDescriptors);
           }
         });
